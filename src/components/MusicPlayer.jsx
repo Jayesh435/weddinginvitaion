@@ -1,10 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const audioCtxRef = useRef(null);
   const gainRef = useRef(null);
+  const loopIntervalRef = useRef(null);
+  const isMutedRef = useRef(false);
+  const isPlayingRef = useRef(false);
+  const buttonRef = useRef(null);
+
+  const LOOP_DURATION_MS = 3600;
 
   const createMelody = (audioCtx) => {
     const notes = [523, 587, 659, 698, 784, 698, 659, 587, 523];
@@ -29,51 +36,125 @@ const MusicPlayer = () => {
     });
   };
 
-  const togglePlay = () => {
-    if (!isPlaying) {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!audioCtxRef.current) {
-          audioCtxRef.current = new AudioContext();
-        }
-        const audioCtx = audioCtxRef.current;
-        if (!gainRef.current) {
-          gainRef.current = audioCtx.createGain();
-          gainRef.current.connect(audioCtx.destination);
-          gainRef.current.gain.setValueAtTime(0.5, audioCtx.currentTime);
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
+  const startLoop = async () => {
+    if (isMuted) return;
+
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') {
+        audioCtxRef.current = new AudioContext();
+        gainRef.current = null;
+      }
+
+      const audioCtx = audioCtxRef.current;
+      if (!gainRef.current) {
+        gainRef.current = audioCtx.createGain();
+        gainRef.current.connect(audioCtx.destination);
+        gainRef.current.gain.setValueAtTime(0.5, audioCtx.currentTime);
+      }
+
+      if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+      }
+
+      if (audioCtx.state !== 'running') {
+        setIsPlaying(false);
+        return;
+      }
+
+      createMelody(audioCtx);
+      if (loopIntervalRef.current) {
+        clearInterval(loopIntervalRef.current);
+      }
+      loopIntervalRef.current = setInterval(() => {
         createMelody(audioCtx);
-        setIsPlaying(true);
-        setTimeout(() => setIsPlaying(false), 4000);
-      } catch (e) {
-        console.warn('Audio not available');
-      }
-    } else {
-      if (audioCtxRef.current) {
-        audioCtxRef.current.suspend();
-      }
+      }, LOOP_DURATION_MS);
+      setIsPlaying(true);
+    } catch (e) {
+      // Browsers can block autoplay until first user gesture.
       setIsPlaying(false);
     }
   };
 
+  const stopLoop = async () => {
+    if (loopIntervalRef.current) {
+      clearInterval(loopIntervalRef.current);
+      loopIntervalRef.current = null;
+    }
+    if (audioCtxRef.current && audioCtxRef.current.state === 'running') {
+      await audioCtxRef.current.suspend();
+    }
+    setIsPlaying(false);
+  };
+
+  useEffect(() => {
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
+
+  useEffect(() => {
+    const startOnInteraction = (event) => {
+      if (buttonRef.current && event?.target instanceof Node && buttonRef.current.contains(event.target)) {
+        return;
+      }
+
+      if (!isMutedRef.current && !isPlayingRef.current) {
+        startLoop();
+      }
+    };
+
+    window.addEventListener('pointerdown', startOnInteraction);
+    window.addEventListener('keydown', startOnInteraction);
+    window.addEventListener('touchstart', startOnInteraction);
+
+    return () => {
+      window.removeEventListener('pointerdown', startOnInteraction);
+      window.removeEventListener('keydown', startOnInteraction);
+      window.removeEventListener('touchstart', startOnInteraction);
+
+      if (loopIntervalRef.current) {
+        clearInterval(loopIntervalRef.current);
+        loopIntervalRef.current = null;
+      }
+      if (audioCtxRef.current) {
+        audioCtxRef.current.close();
+        audioCtxRef.current = null;
+        gainRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMuted) {
+      stopLoop();
+    } else {
+      startLoop();
+    }
+  }, [isMuted]);
+
+  const togglePlay = () => {
+    setIsMuted((prev) => !prev);
+  };
+
   return (
     <motion.button
+      ref={buttonRef}
       onClick={togglePlay}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      animate={isPlaying ? { boxShadow: ['0 0 20px rgba(255,215,0,0.4)', '0 0 50px rgba(255,215,0,0.8)', '0 0 20px rgba(255,215,0,0.4)'] } : {}}
-      transition={isPlaying ? { duration: 1.5, repeat: Infinity } : {}}
+      animate={isPlaying && !isMuted ? { boxShadow: ['0 0 20px rgba(255,215,0,0.4)', '0 0 50px rgba(255,215,0,0.8)', '0 0 20px rgba(255,215,0,0.4)'] } : {}}
+      transition={isPlaying && !isMuted ? { duration: 1.5, repeat: Infinity } : {}}
       className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg"
       style={{
         background: 'linear-gradient(135deg, #92400E, #D97706, #FFD700)',
         boxShadow: '0 4px 25px rgba(255,215,0,0.5)',
       }}
-      title={isPlaying ? 'Pause Music' : 'Play Music'}
+      title={isMuted || !isPlaying ? 'Unmute Music' : 'Mute Music'}
     >
-      {isPlaying ? '🔊' : '🔇'}
+      {isMuted || !isPlaying ? '🔇' : '🔊'}
     </motion.button>
   );
 };

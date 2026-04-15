@@ -177,7 +177,7 @@ const EnvelopeOpening = ({ onOpen }) => {
                 className="text-xs tracking-widest mb-2"
                 style={{ color: '#C4B5FD', fontFamily: 'Poppins, sans-serif', letterSpacing: '0.25em' }}
               >
-                ROYAL WEDDING INVITATION
+                WEDDING INVITATION
               </motion.p>
 
               {/* Divider */}
@@ -320,13 +320,13 @@ const WaxSeal = ({ broken, onClick }) => {
           <span
             style={{
               color: '#FFD700',
-              fontSize: '1.4rem',
+              fontSize: '1rem',
               fontFamily: '"Playfair Display", serif',
               fontWeight: 'bold',
               textShadow: '0 0 8px rgba(255,215,0,0.8)',
             }}
           >
-            N
+            N&P
           </span>
         )}
         {broken && (

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 
 const VenueSection = () => {
-  const mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=Sweta+Lawn,+Nigdi,+Pune,+Maharashtra';
-  const embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.792!2d73.765!3d18.648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSweta+Lawn+Nigdi+Pune!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin';
+  const mapsUrl = 'https://maps.app.goo.gl/KY4BtR95FF3c3Dvw7';
+  const embedUrl = 'https://www.google.com/maps?q=Mata+Amritanandamayi+Math,+Nigdi,+Pune,+411044&output=embed';
 
   return (
     <section id="venue" className="py-20 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #064E3B 0%, #065F46 40%, #1A0533 100%)' }}>
@@ -54,22 +54,22 @@ const VenueSection = () => {
                 className="text-2xl font-bold mb-2"
                 style={{ color: '#FFD700', fontFamily: '"Playfair Display", serif' }}
               >
-                Sweta Lawn
+                Mata Amritanandamayi Math
               </h3>
               <p className="text-sm mb-4" style={{ color: '#6EE7B7', fontFamily: 'Poppins, sans-serif' }}>
-                Nigdi, Pune, Maharashtra
+                Nigdi, Pune - 411044
               </p>
               <div className="space-y-2 mb-6">
                 <div className="flex items-center gap-2">
                   <span>📍</span>
                   <span style={{ color: '#A7F3D0', fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem' }}>
-                    Nigdi, Pune - 411044, Maharashtra
+                    Mata Amritanandamayi Math, Nigdi, Pune - 411044
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span>📅</span>
                   <span style={{ color: '#A7F3D0', fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem' }}>
-                    8-10 May 2026
+                   10 May 2026
                   </span>
                 </div>
               </div>

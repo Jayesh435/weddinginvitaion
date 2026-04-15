@@ -18,7 +18,7 @@ const Preloader = ({ isLoading }) => {
           </div>
 
           <div className="relative text-center z-10">
-            <motion.div
+            {/* <motion.div
               animate={{
                 scale: [1, 1.2, 1],
                 rotate: [0, 180, 360]
@@ -31,7 +31,7 @@ const Preloader = ({ isLoading }) => {
               className="text-6xl mb-4"
             >
               👑
-            </motion.div>
+            </motion.div> */}
             <motion.h1
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 1.5, repeat: Infinity }}

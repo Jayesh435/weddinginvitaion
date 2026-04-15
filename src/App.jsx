@@ -72,7 +72,7 @@ function App() {
             <EventsSection />
             <VenueSection />
             <GallerySection />
-            <DownloadButton />
+            {/* <DownloadButton /> */}
             <Footer />
 
             {/* Floating buttons */}
