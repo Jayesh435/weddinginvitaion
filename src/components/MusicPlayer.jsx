@@ -97,6 +97,10 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     const startOnInteraction = (event) => {
+      if (document.hidden) {
+        return;
+      }
+
       if (buttonRef.current && event?.target instanceof Node && buttonRef.current.contains(event.target)) {
         return;
       }
@@ -106,14 +110,34 @@ const MusicPlayer = () => {
       }
     };
 
+    const stopOnPageHide = () => {
+      stopLoop();
+    };
+
+    const stopOnVisibilityChange = () => {
+      if (document.hidden) {
+        stopLoop();
+      }
+    };
+
+    const stopOnBlur = () => {
+      stopLoop();
+    };
+
     window.addEventListener('pointerdown', startOnInteraction);
     window.addEventListener('keydown', startOnInteraction);
     window.addEventListener('touchstart', startOnInteraction);
+    window.addEventListener('pagehide', stopOnPageHide);
+    window.addEventListener('blur', stopOnBlur);
+    document.addEventListener('visibilitychange', stopOnVisibilityChange);
 
     return () => {
       window.removeEventListener('pointerdown', startOnInteraction);
       window.removeEventListener('keydown', startOnInteraction);
       window.removeEventListener('touchstart', startOnInteraction);
+      window.removeEventListener('pagehide', stopOnPageHide);
+      window.removeEventListener('blur', stopOnBlur);
+      document.removeEventListener('visibilitychange', stopOnVisibilityChange);
 
       if (loopIntervalRef.current) {
         clearInterval(loopIntervalRef.current);
