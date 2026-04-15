@@ -28,7 +28,7 @@ const PetalAnimation = () => {
         rotation: Math.random() * 360,
         rotationSpeed: Math.random() * 2 - 1,
         opacity: Math.random() * 0.6 + 0.2,
-        color: `hsl(${340 + Math.random() * 30}, ${70 + Math.random() * 20}%, ${75 + Math.random() * 15}%)`,
+        color: `hsl(${270 + Math.random() * 90}, ${70 + Math.random() * 20}%, ${55 + Math.random() * 25}%)`,
       });
     }
 

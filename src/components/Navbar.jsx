@@ -27,15 +27,19 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
       style={{
         background: scrolled
-          ? 'rgba(255,248,240,0.85)'
+          ? 'rgba(26,5,51,0.92)'
           : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        boxShadow: scrolled ? '0 2px 20px rgba(212,175,55,0.15)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(212,175,55,0.2)' : 'none',
+        backdropFilter: scrolled ? 'blur(14px)' : 'none',
+        boxShadow: scrolled ? '0 2px 30px rgba(255,215,0,0.2)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,215,0,0.25)' : 'none',
       }}
     >
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="#home" className="text-xl font-bold" style={{ color: '#D4AF37', fontFamily: '"Playfair Display", serif' }}>
+        <a
+          href="#home"
+          className="text-xl font-bold gold-shimmer"
+          style={{ fontFamily: '"Playfair Display", serif' }}
+        >
           N ❤️ P
         </a>
 
@@ -45,8 +49,10 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium transition-colors hover:text-yellow-600"
-              style={{ color: '#7c4e2d', fontFamily: 'Poppins, sans-serif' }}
+              className="text-sm font-medium transition-all duration-200 hover:scale-105"
+              style={{ color: '#E9D5FF', fontFamily: 'Poppins, sans-serif' }}
+              onMouseEnter={e => (e.target.style.color = '#FFD700')}
+              onMouseLeave={e => (e.target.style.color = '#E9D5FF')}
             >
               {link.label}
             </a>
@@ -58,9 +64,9 @@ const Navbar = () => {
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <span className="block w-6 h-0.5 bg-yellow-700" />
-          <span className="block w-6 h-0.5 bg-yellow-700" />
-          <span className="block w-6 h-0.5 bg-yellow-700" />
+          <span className="block w-6 h-0.5" style={{ background: '#FFD700' }} />
+          <span className="block w-6 h-0.5" style={{ background: '#FFD700' }} />
+          <span className="block w-6 h-0.5" style={{ background: '#FFD700' }} />
         </button>
       </div>
 
@@ -70,15 +76,19 @@ const Navbar = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden px-4 pb-4 flex flex-col gap-3"
-          style={{ background: 'rgba(255,248,240,0.95)', backdropFilter: 'blur(12px)' }}
+          style={{
+            background: 'rgba(26,5,51,0.97)',
+            backdropFilter: 'blur(14px)',
+            borderBottom: '1px solid rgba(255,215,0,0.2)',
+          }}
         >
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-sm font-medium py-2 border-b border-yellow-100"
-              style={{ color: '#7c4e2d', fontFamily: 'Poppins, sans-serif' }}
+              className="text-sm font-medium py-2 border-b"
+              style={{ color: '#E9D5FF', fontFamily: 'Poppins, sans-serif', borderColor: 'rgba(255,215,0,0.15)' }}
             >
               {link.label}
             </a>
