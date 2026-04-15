@@ -12,7 +12,7 @@ const DownloadButton = () => {
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400&display=swap');
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #FFB6C1, #FFCBA4, #FFF8F0);
+      background: linear-gradient(135deg, #0F0521, #3B0764, #7C1D2E);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -20,19 +20,19 @@ const DownloadButton = () => {
       margin: 0;
     }
     .card {
-      background: rgba(255,255,255,0.8);
+      background: linear-gradient(135deg, rgba(76,29,149,0.9), rgba(59,7,100,0.95));
       padding: 60px;
       border-radius: 20px;
       text-align: center;
-      border: 2px solid #D4AF37;
-      box-shadow: 0 25px 60px rgba(212,175,55,0.3);
+      border: 2px solid #FFD700;
+      box-shadow: 0 25px 60px rgba(255,215,0,0.3);
       max-width: 500px;
     }
-    h1 { font-family: 'Playfair Display', serif; color: #8B4513; font-size: 3rem; margin: 0; }
-    h2 { font-family: 'Playfair Display', serif; color: #D4AF37; font-size: 1.5rem; }
-    p { color: #A0522D; }
-    .gold { color: #D4AF37; }
-    .divider { height: 1px; background: linear-gradient(90deg, transparent, #D4AF37, transparent); margin: 20px auto; width: 80%; }
+    h1 { font-family: 'Playfair Display', serif; color: #FFD700; font-size: 3rem; margin: 0; text-shadow: 0 0 20px rgba(255,215,0,0.5); }
+    h2 { font-family: 'Playfair Display', serif; color: #FBBF24; font-size: 1.5rem; }
+    p { color: #DDD6FE; }
+    .gold { color: #FFD700; }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 20px auto; width: 80%; }
   </style>
 </head>
 <body>
@@ -60,16 +60,18 @@ const DownloadButton = () => {
   };
 
   return (
-    <section className="py-12 px-4 text-center" style={{ background: '#FFF8F0' }}>
+    <section className="py-12 px-4 text-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A0533, #2D1B69)' }}>
       <motion.button
         onClick={handleDownload}
-        whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(212,175,55,0.6)' }}
+        whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(255,215,0,0.7)' }}
         whileTap={{ scale: 0.95 }}
-        className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-white font-semibold"
+        className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-bold glow-gold"
         style={{
-          background: 'linear-gradient(135deg, #D4AF37, #B8962E)',
-          boxShadow: '0 10px 30px rgba(212,175,55,0.4)',
+          background: 'linear-gradient(135deg, #92400E, #D97706, #FFD700)',
+          color: '#1A0533',
+          boxShadow: '0 10px 30px rgba(255,215,0,0.4)',
           fontFamily: 'Poppins, sans-serif',
+          fontSize: '0.95rem',
         }}
       >
         <span>📥</span>

@@ -64,12 +64,12 @@ const MusicPlayer = () => {
       onClick={togglePlay}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      animate={isPlaying ? { boxShadow: ['0 0 20px rgba(212,175,55,0.3)', '0 0 40px rgba(212,175,55,0.6)', '0 0 20px rgba(212,175,55,0.3)'] } : {}}
+      animate={isPlaying ? { boxShadow: ['0 0 20px rgba(255,215,0,0.4)', '0 0 50px rgba(255,215,0,0.8)', '0 0 20px rgba(255,215,0,0.4)'] } : {}}
       transition={isPlaying ? { duration: 1.5, repeat: Infinity } : {}}
       className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg"
       style={{
-        background: 'linear-gradient(135deg, #D4AF37, #B8962E)',
-        boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
+        background: 'linear-gradient(135deg, #92400E, #D97706, #FFD700)',
+        boxShadow: '0 4px 25px rgba(255,215,0,0.5)',
       }}
       title={isPlaying ? 'Pause Music' : 'Play Music'}
     >
