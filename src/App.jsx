@@ -34,7 +34,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: '#FFF8F0' }}>
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #1A0533 0%, #3B0764 30%, #7C1D2E 70%, #1A0533 100%)' }}>
       {/* Preloader */}
       <Preloader isLoading={isLoading} />
 

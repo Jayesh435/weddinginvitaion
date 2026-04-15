@@ -44,14 +44,32 @@ const EnvelopeOpening = ({ onOpen }) => {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
       style={{
-        background: 'linear-gradient(135deg, #FFB6C1 0%, #FFCBA4 50%, #FFF8F0 100%)',
+        background: 'linear-gradient(135deg, #0F0521 0%, #3B0764 35%, #7C1D2E 65%, #0F0521 100%)',
       }}
     >
       {/* Ambient light effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl" style={{ background: '#D4AF37' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl" style={{ background: '#FFB6C1' }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl" style={{ background: '#7C3AED' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl" style={{ background: '#BE123C' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-10 blur-3xl" style={{ background: '#FFD700' }} />
       </div>
+
+      {/* Floating sparkles */}
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute text-yellow-300 pointer-events-none"
+          style={{
+            left: `${8 + i * 11}%`,
+            top: `${10 + (i % 4) * 22}%`,
+            fontSize: i % 2 === 0 ? '1rem' : '0.6rem',
+          }}
+          animate={{ opacity: [0.2, 0.8, 0.2], y: [0, -8, 0] }}
+          transition={{ duration: 2 + (i % 3), repeat: Infinity, delay: i * 0.4 }}
+        >
+          ✦
+        </motion.div>
+      ))}
 
       <motion.div
         animate={envelopeOpen ? { scale: 1.05 } : { scale: 1 }}
@@ -63,16 +81,16 @@ const EnvelopeOpening = ({ onOpen }) => {
         <div
           className="relative w-80 md:w-96"
           style={{
-            filter: 'drop-shadow(0 25px 50px rgba(212,175,55,0.4))',
+            filter: 'drop-shadow(0 25px 60px rgba(255,215,0,0.35))',
           }}
         >
           {/* Envelope Body */}
           <motion.div
             className="relative rounded-lg"
             style={{
-              background: 'linear-gradient(145deg, #FFF8DC, #FFFACD, #FFF8F0)',
-              border: '2px solid #D4AF37',
-              boxShadow: '0 20px 60px rgba(212,175,55,0.3), inset 0 0 30px rgba(212,175,55,0.1)',
+              background: 'linear-gradient(145deg, #2D1B69, #4C1D95, #3B0764)',
+              border: '2px solid #FFD700',
+              boxShadow: '0 20px 60px rgba(255,215,0,0.25), inset 0 0 30px rgba(255,215,0,0.08)',
               minHeight: '320px',
             }}
           >
@@ -84,7 +102,7 @@ const EnvelopeOpening = ({ onOpen }) => {
                 left: 0,
                 right: 0,
                 height: '50%',
-                background: 'linear-gradient(160deg, #FFF0C0, #FFE88A)',
+                background: 'linear-gradient(160deg, #4C1D95, #6D28D9)',
                 clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
                 zIndex: 1,
                 borderRadius: '8px 8px 0 0',
@@ -101,31 +119,41 @@ const EnvelopeOpening = ({ onOpen }) => {
                 clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
                 zIndex: 1,
                 borderRadius: '8px 8px 0 0',
-                border: '1px solid rgba(212,175,55,0.5)',
+                border: '1px solid rgba(255,215,0,0.5)',
               }}
             />
 
             {/* Gold corner decorations */}
-            <div className="absolute top-2 left-2 text-yellow-500 text-xl opacity-60 z-[2]">✦</div>
-            <div className="absolute top-2 right-2 text-yellow-500 text-xl opacity-60 z-[2]">✦</div>
-            <div className="absolute bottom-2 left-2 text-yellow-500 text-xl opacity-60 z-[2]">✦</div>
-            <div className="absolute bottom-2 right-2 text-yellow-500 text-xl opacity-60 z-[2]">✦</div>
+            <div className="absolute top-2 left-2 text-yellow-400 text-xl opacity-80 z-[2]">✦</div>
+            <div className="absolute top-2 right-2 text-yellow-400 text-xl opacity-80 z-[2]">✦</div>
+            <div className="absolute bottom-2 left-2 text-yellow-400 text-xl opacity-80 z-[2]">✦</div>
+            <div className="absolute bottom-2 right-2 text-yellow-400 text-xl opacity-80 z-[2]">✦</div>
 
             {/* Gold border lines */}
-            <div className="absolute inset-3 border border-yellow-400 opacity-30 rounded z-[2]" />
+            <div className="absolute inset-3 border rounded z-[2]" style={{ borderColor: 'rgba(255,215,0,0.3)' }} />
 
-            {/* Envelope content — sits in lower portion, visible below flap */}
+            {/* Envelope content */}
             <div
               className="relative text-center flex flex-col items-center"
               style={{ paddingTop: '160px', paddingBottom: '28px', paddingLeft: '24px', paddingRight: '24px', zIndex: 3 }}
             >
-              {/* Monogram */}
+              {/* Crown icon */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
-                className="text-xl font-bold mb-2"
-                style={{ color: '#D4AF37', fontFamily: '"Playfair Display", serif' }}
+                className="text-2xl mb-1"
+              >
+                👑
+              </motion.div>
+
+              {/* Monogram */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="text-xl font-bold mb-2 gold-shimmer"
+                style={{ fontFamily: '"Playfair Display", serif' }}
               >
                 N ❤️ P
               </motion.div>
@@ -136,7 +164,7 @@ const EnvelopeOpening = ({ onOpen }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 className="text-3xl font-bold mb-1"
-                style={{ color: '#8B4513', fontFamily: '"Playfair Display", serif' }}
+                style={{ color: '#FFD700', fontFamily: '"Playfair Display", serif', textShadow: '0 0 15px rgba(255,215,0,0.5)' }}
               >
                 Nikhil &amp; Prachi
               </motion.h1>
@@ -147,9 +175,9 @@ const EnvelopeOpening = ({ onOpen }) => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}
                 className="text-xs tracking-widest mb-2"
-                style={{ color: '#A0522D', fontFamily: 'Poppins, sans-serif', letterSpacing: '0.25em' }}
+                style={{ color: '#C4B5FD', fontFamily: 'Poppins, sans-serif', letterSpacing: '0.25em' }}
               >
-                WEDDING INVITATION
+                ROYAL WEDDING INVITATION
               </motion.p>
 
               {/* Divider */}
@@ -158,7 +186,7 @@ const EnvelopeOpening = ({ onOpen }) => {
                 animate={{ width: '60%' }}
                 transition={{ delay: 0.9, duration: 0.6 }}
                 className="h-px my-2 mx-auto"
-                style={{ background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)' }}
+                style={{ background: 'linear-gradient(90deg, transparent, #FFD700, transparent)' }}
               />
 
               {/* Date */}
@@ -167,12 +195,12 @@ const EnvelopeOpening = ({ onOpen }) => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
                 className="text-base mb-4"
-                style={{ color: '#D4AF37', fontFamily: '"Playfair Display", serif' }}
+                style={{ color: '#FBBF24', fontFamily: '"Playfair Display", serif' }}
               >
-                10 May 2026
+                ✦ 10 May 2026 ✦
               </motion.p>
 
-              {/* Wax seal — center bottom, overlapping flap tip */}
+              {/* Wax seal */}
               <div style={{ marginTop: '4px' }}>
                 <WaxSeal broken={sealBroken} onClick={handleSealClick} />
               </div>
@@ -193,7 +221,7 @@ const EnvelopeOpening = ({ onOpen }) => {
               transformOrigin: 'top center',
               transformStyle: 'preserve-3d',
               zIndex: 10,
-              pointerEvents: envelopeOpen ? 'none' : 'none',
+              pointerEvents: 'none',
             }}
           >
             <div
@@ -203,7 +231,7 @@ const EnvelopeOpening = ({ onOpen }) => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'linear-gradient(160deg, #FFF0C0, #FFE88A)',
+                background: 'linear-gradient(160deg, #4C1D95, #6D28D9)',
                 clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
                 borderRadius: '8px 8px 0 0',
               }}
@@ -216,7 +244,7 @@ const EnvelopeOpening = ({ onOpen }) => {
                 right: 0,
                 bottom: 0,
                 clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-                border: '1px solid rgba(212,175,55,0.5)',
+                border: '1px solid rgba(255,215,0,0.5)',
                 borderRadius: '8px 8px 0 0',
               }}
             />
@@ -232,13 +260,13 @@ const EnvelopeOpening = ({ onOpen }) => {
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className="absolute left-4 right-4 bottom-0 z-20 rounded-lg p-6 text-center"
               style={{
-                background: 'linear-gradient(145deg, #FFFEF0, #FFF8F0)',
-                border: '1px solid #D4AF37',
-                boxShadow: '0 10px 30px rgba(212,175,55,0.2)',
+                background: 'linear-gradient(145deg, #2D1B69, #4C1D95)',
+                border: '1px solid #FFD700',
+                boxShadow: '0 10px 40px rgba(255,215,0,0.3)',
               }}
             >
-              <p className="text-rose-600 font-semibold" style={{ fontFamily: '"Playfair Display", serif' }}>
-                You are cordially invited...
+              <p className="font-semibold" style={{ color: '#FFD700', fontFamily: '"Playfair Display", serif' }}>
+                👑 You are cordially invited...
               </p>
             </motion.div>
           )}
@@ -250,10 +278,10 @@ const EnvelopeOpening = ({ onOpen }) => {
         <motion.p
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-12 text-center text-rose-500"
-          style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem' }}
+          className="absolute bottom-12 text-center"
+          style={{ color: '#C4B5FD', fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem' }}
         >
-          Click the wax seal to open ✨
+          Click the royal seal to open ✦
         </motion.p>
       )}
     </div>
@@ -277,13 +305,13 @@ const WaxSeal = ({ broken, onClick }) => {
           height: 64,
           borderRadius: '50%',
           background: broken
-            ? 'conic-gradient(#8B0000 0deg, #DC143C 90deg, #8B0000 180deg, #B22222 270deg)'
-            : 'radial-gradient(circle at 35% 35%, #DC2626, #9B1C1C)',
-          boxShadow: broken ? 'none' : '0 4px 15px rgba(220,38,38,0.5), inset 0 2px 4px rgba(255,255,255,0.2)',
+            ? 'conic-gradient(#4C1D95 0deg, #7C3AED 90deg, #4C1D95 180deg, #6D28D9 270deg)'
+            : 'radial-gradient(circle at 35% 35%, #7C3AED, #4C1D95)',
+          boxShadow: broken ? 'none' : '0 4px 20px rgba(124,58,237,0.6), inset 0 2px 4px rgba(255,255,255,0.2)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          border: '2px solid #7f1d1d',
+          border: '2px solid #FFD700',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -291,11 +319,11 @@ const WaxSeal = ({ broken, onClick }) => {
         {!broken && (
           <span
             style={{
-              color: '#FFF8DC',
-              fontSize: '1.5rem',
+              color: '#FFD700',
+              fontSize: '1.4rem',
               fontFamily: '"Playfair Display", serif',
               fontWeight: 'bold',
-              textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+              textShadow: '0 0 8px rgba(255,215,0,0.8)',
             }}
           >
             N
@@ -307,7 +335,7 @@ const WaxSeal = ({ broken, onClick }) => {
               style={{
                 width: '100%',
                 height: '3px',
-                background: '#4a0000',
+                background: '#FFD700',
                 transform: 'rotate(45deg)',
                 position: 'absolute',
               }}
@@ -316,7 +344,7 @@ const WaxSeal = ({ broken, onClick }) => {
               style={{
                 width: '100%',
                 height: '3px',
-                background: '#4a0000',
+                background: '#FFD700',
                 transform: 'rotate(-45deg)',
                 position: 'absolute',
               }}
@@ -326,10 +354,10 @@ const WaxSeal = ({ broken, onClick }) => {
       </div>
       {!broken && (
         <motion.div
-          animate={{ opacity: [0.3, 0.7, 0.3] }}
+          animate={{ opacity: [0.3, 0.9, 0.3] }}
           transition={{ duration: 1.5, repeat: Infinity }}
           className="absolute -inset-2 rounded-full"
-          style={{ border: '2px solid rgba(220,38,38,0.3)' }}
+          style={{ border: '2px solid rgba(255,215,0,0.5)' }}
         />
       )}
     </motion.button>

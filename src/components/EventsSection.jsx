@@ -8,7 +8,8 @@ const events = [
     venue: 'Sweta Lawn, Nigdi, Pune',
     description: 'Join us for an evening of beautiful henna art, music, and celebrations.',
     icon: '🌿',
-    color: '#22c55e',
+    color: '#10B981',
+    bg: 'linear-gradient(135deg, rgba(6,78,59,0.7), rgba(16,185,129,0.3))',
   },
   {
     title: 'Sangeet Night',
@@ -17,7 +18,8 @@ const events = [
     venue: 'Sweta Lawn, Nigdi, Pune',
     description: 'An evening of music, dance, and joyous celebrations with family and friends.',
     icon: '🎵',
-    color: '#ec4899',
+    color: '#EC4899',
+    bg: 'linear-gradient(135deg, rgba(131,24,67,0.7), rgba(236,72,153,0.3))',
   },
   {
     title: 'Wedding Ceremony',
@@ -26,7 +28,8 @@ const events = [
     venue: 'Sweta Lawn, Nigdi, Pune',
     description: 'The sacred union of Nikhil and Prachi in the presence of family and friends.',
     icon: '💍',
-    color: '#D4AF37',
+    color: '#FFD700',
+    bg: 'linear-gradient(135deg, rgba(92,64,0,0.7), rgba(255,215,0,0.3))',
   },
   {
     title: 'Wedding Reception',
@@ -35,7 +38,8 @@ const events = [
     venue: 'Sweta Lawn, Nigdi, Pune',
     description: 'Celebrate the newlyweds with a grand dinner and festivities.',
     icon: '🥂',
-    color: '#8b5cf6',
+    color: '#A78BFA',
+    bg: 'linear-gradient(135deg, rgba(46,16,101,0.7), rgba(167,139,250,0.3))',
   },
 ];
 
@@ -53,9 +57,9 @@ const EventCard = ({ event, index }) => (
       <div
         className="w-14 h-14 rounded-full flex items-center justify-center text-2xl z-10"
         style={{
-          background: `${event.color}20`,
+          background: `${event.color}25`,
           border: `2px solid ${event.color}`,
-          boxShadow: `0 4px 15px ${event.color}30`,
+          boxShadow: `0 4px 20px ${event.color}50`,
         }}
       >
         {event.icon}
@@ -63,7 +67,7 @@ const EventCard = ({ event, index }) => (
       {index < events.length - 1 && (
         <div
           className="w-px flex-1 mt-2"
-          style={{ background: 'linear-gradient(180deg, #D4AF37, transparent)', minHeight: '40px' }}
+          style={{ background: `linear-gradient(180deg, ${event.color}80, transparent)`, minHeight: '40px' }}
         />
       )}
     </div>
@@ -72,43 +76,43 @@ const EventCard = ({ event, index }) => (
     <div
       className="flex-1 p-6 rounded-2xl mb-4"
       style={{
-        background: 'rgba(255,255,255,0.5)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(212,175,55,0.3)',
-        boxShadow: '0 8px 32px rgba(212,175,55,0.1)',
+        background: event.bg,
+        backdropFilter: 'blur(12px)',
+        border: `1px solid ${event.color}35`,
+        boxShadow: `0 8px 32px ${event.color}20`,
       }}
     >
       <div className="flex flex-wrap gap-2 mb-2">
         <span
           className="text-xs px-3 py-1 rounded-full font-semibold"
           style={{
-            background: `${event.color}20`,
+            background: `${event.color}25`,
             color: event.color,
-            border: `1px solid ${event.color}40`,
+            border: `1px solid ${event.color}50`,
           }}
         >
           {event.date}
         </span>
         <span
-          className="text-xs px-3 py-1 rounded-full"
-          style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.3)' }}
+          className="text-xs px-3 py-1 rounded-full font-medium"
+          style={{ background: 'rgba(255,215,0,0.15)', color: '#FFD700', border: '1px solid rgba(255,215,0,0.3)' }}
         >
           {event.time}
         </span>
       </div>
       <h3
         className="text-xl font-bold mb-1"
-        style={{ color: '#8B4513', fontFamily: '"Playfair Display", serif' }}
+        style={{ color: '#FFD700', fontFamily: '"Playfair Display", serif' }}
       >
         {event.title}
       </h3>
       <p
         className="text-sm mb-2"
-        style={{ color: '#D4AF37', fontFamily: 'Poppins, sans-serif' }}
+        style={{ color: event.color, fontFamily: 'Poppins, sans-serif' }}
       >
         📍 {event.venue}
       </p>
-      <p style={{ color: '#A0522D', fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem', lineHeight: 1.6 }}>
+      <p style={{ color: '#DDD6FE', fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem', lineHeight: 1.6 }}>
         {event.description}
       </p>
     </div>
@@ -117,8 +121,14 @@ const EventCard = ({ event, index }) => (
 
 const EventsSection = () => {
   return (
-    <section id="events" className="py-20 px-4" style={{ background: 'linear-gradient(180deg, #FFF8F0, #FFECE0)' }}>
-      <div className="max-w-2xl mx-auto">
+    <section id="events" className="py-20 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0A1628 0%, #1E1B4B 40%, #2D1B69 70%, #1A0533 100%)' }}>
+      {/* Background orbs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-1/3 w-72 h-72 rounded-full opacity-10 blur-3xl" style={{ background: '#EC4899' }} />
+        <div className="absolute bottom-0 left-1/3 w-72 h-72 rounded-full opacity-10 blur-3xl" style={{ background: '#10B981' }} />
+      </div>
+
+      <div className="max-w-2xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -126,16 +136,16 @@ const EventsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-sm tracking-widest mb-2" style={{ color: '#D4AF37', fontFamily: 'Poppins, sans-serif', letterSpacing: '0.3em' }}>
-            JOIN US FOR
+          <p className="text-xs tracking-widest mb-2 font-semibold" style={{ color: '#FBBF24', fontFamily: 'Poppins, sans-serif', letterSpacing: '0.35em' }}>
+            ✦ JOIN US FOR ✦
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold"
-            style={{ color: '#8B4513', fontFamily: '"Playfair Display", serif' }}
+            className="text-4xl md:text-5xl font-bold gold-shimmer"
+            style={{ fontFamily: '"Playfair Display", serif' }}
           >
             Wedding Events
           </h2>
-          <div className="w-24 h-px mx-auto mt-4" style={{ background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)' }} />
+          <div className="w-24 h-px mx-auto mt-4" style={{ background: 'linear-gradient(90deg, transparent, #FFD700, transparent)' }} />
         </motion.div>
 
         {events.map((event, i) => (
