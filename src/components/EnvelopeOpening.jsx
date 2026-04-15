@@ -281,7 +281,7 @@ const EnvelopeOpening = ({ onOpen }) => {
           className="absolute bottom-12 text-center"
           style={{ color: '#C4B5FD', fontFamily: 'Poppins, sans-serif', fontSize: '0.875rem' }}
         >
-          Click the royal seal to open ✦
+          Click the seal to open ✦
         </motion.p>
       )}
     </div>

@@ -45,7 +45,7 @@ const Preloader = ({ isLoading }) => {
               transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
               style={{ color: '#C4B5FD', fontFamily: 'Poppins, sans-serif', fontSize: '0.9rem' }}
             >
-              Loading your royal invitation...
+              Loading your invitation...
             </motion.p>
             {/* Gold dots loader */}
             <div className="flex justify-center gap-2 mt-4">
